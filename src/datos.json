@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nombre": "Nicolas",
+    "email": "nicopro@gmail.com",
+    "bootcamp": "Matematicas"
+  },
+
+  {
+    "id": 1,
+    "nombre": "David",
+    "email": "davi_333@gmail.com",
+    "bootcamp": "Lengua"
+  },
+
+  {
+    "id": 1,
+    "nombre": "Ernesto",
+    "email": "91ernes91@gmail.com",
+    "bootcamp": "Ciencias"
+  }
+]
