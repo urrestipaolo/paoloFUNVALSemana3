@@ -3,20 +3,20 @@
     "id": 1,
     "nombre": "Nicolas",
     "email": "nicopro@gmail.com",
-    "bootcamp": "Matematicas"
+    "bootcamp": "Diseñador"
   },
 
   {
     "id": 2,
     "nombre": "David",
     "email": "davi_333@gmail.com",
-    "bootcamp": "Lengua"
+    "bootcamp": "Programador"
   },
 
   {
     "id": 3,
     "nombre": "Ernesto",
     "email": "91ernes91@gmail.com",
-    "bootcamp": "Ciencias"
+    "bootcamp": "Frontend"
   }
 ]

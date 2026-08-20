@@ -7,6 +7,15 @@ import path from "node:path";
 const app = express();
 const PORT = 3000;
 
+
+import estudiantesRouter from './routes/estudiantes.routes.js';
+import { cargarDatos } from './routes/estudiantes.routes.js';
+
+app.use('/api/estudiantes', estudiantesRouter);
+
+
+
+
 app.use(express.json()); 
 app.use(function(req: Request, res: Response, next: NextFunction){
     const timestamp = new Date().toLocaleTimeString();
@@ -48,7 +57,7 @@ interface Estudiante {
   email: string;
   bootcamp: string;
 }
-
+/* --------- ESTÁ EN ROUTES -------
 let estudiantes: Estudiante[] = [];
 
 // TRAYENDO EL ARCHIVO datos.json PARA USARLO EN LOS ARRAYS
@@ -65,15 +74,15 @@ async function cargarDatos() {
     }
 }
 
+ */
 
-
-
+/* --------- ESTA EN ROUTES --------------------
 // ENDPOINT GET -- LEER LOS ESTUDIANTES
 app.get ("/api/estudiantes", async function(req: Request, res: Response) {
     const estadoActualEstudiantes = await estudiantes;
     res.json(estadoActualEstudiantes);
 });
-
+ */
 
 // ENDPOINT POST -- CREAR LOS ESTUDIANTES
 interface crearEstudiante {
@@ -81,7 +90,7 @@ interface crearEstudiante {
     email: string;
     bootcamp: string;
 }
-
+/* ------------------ ESTA EN ROUTES ------------------------
 app.post("/api/estudiantes", function(req: Request<{},{}, crearEstudiante>, res: Response){
     const {nombre, email, bootcamp} = req.body;
     if(!nombre || !email ){
@@ -98,7 +107,7 @@ app.post("/api/estudiantes", function(req: Request<{},{}, crearEstudiante>, res:
     estudiantes.push(nuevoEstudiante);
     res.status(201).json(nuevoEstudiante);
 })
-
+ */
 
 // ENDPOINT PUT -- ACTUALIZAR LOS ESTUDIANTES
 interface actualizarEstudiante {
@@ -106,6 +115,8 @@ interface actualizarEstudiante {
     email: string;
     bootcamp: string;
 }
+
+/* -------------------- ESTÁ EN ROUTES --------------------
 app.put("/api/estudiantes/:id", function (req: Request, res: Response) {
   const idBuscado = Number(req.params.id);
   const index = estudiantes.findIndex(function (e) {
@@ -126,7 +137,10 @@ app.put("/api/estudiantes/:id", function (req: Request, res: Response) {
     res.json(estudiantes[index]);
   }
 });
+ */
 
+
+/* ----------------- ESTA EN ROUTES ---------------------------
 
 //ENDPOINT DELETE -- ELIMINAR UN ESTUDIANTE
 app.delete("/api/estudiantes/:id", function (req: Request, res: Response) {
@@ -147,7 +161,13 @@ app.delete("/api/estudiantes/:id", function (req: Request, res: Response) {
 });
 
 
+ */
 
+
+// ------------- ESTUDIANTES FILTRADOS --------------
+interface estudiantesFiltrados {
+  bootcamp?: string;
+}
 
 // ---------------------------------------------------------------------------------------
 app.get ("/api/status", async function(req: Request, res: Response) {
@@ -166,3 +186,8 @@ app.listen(PORT, async function() {
     console.log(`AQUI SE ENCUENTRA EL SERVIDOR --> http://localhost:3000/`);
     await cargarDatos();
 })
+
+
+// ---------- EXPORTACIONES --------
+
+export type {Estudiante , crearEstudiante, actualizarEstudiante, estudiantesFiltrados}
