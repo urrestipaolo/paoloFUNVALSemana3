@@ -31,10 +31,10 @@ async function cargarDatos() {
     }
 }
 
-
+/*
 // ENDPOINT GET -- LEER LOS ESTUDIANTES
-router.get ("", async function(req: Request, res: Response) {
-  /*
+router.get ("/", async function(req: Request, res: Response) {
+
     #swagger.tags = ['LISTA DE LOS ESTUDIANTES']
     #swagger.summary = 'PODER VER A TODOS LOS ESTUDIANTES'
     #swagger.responses[200] = {
@@ -52,10 +52,38 @@ router.get ("", async function(req: Request, res: Response) {
         }
       }
     }
-  */
+
     const estadoActualEstudiantes = await estudiantes;
     res.json(estadoActualEstudiantes);
 });
+*/
+
+
+// ENDPOINT LISTA Y BOOTCAMP JUNTOS (ARREGLADO)
+router.get('/', (req: Request, res: Response) => {
+  /*
+  #swagger.tags = ['LISTA DE ESTUDIANTES']
+    #swagger.summary = 'PODER ENCONTRAR A UN ESTUDIANTE POR SU BOOTCAMP'
+    #swagger.parameters['bootcamp'] = {
+      in: 'query',
+      description: 'Filtrar por bootcamp',
+      required: false,
+      type: 'string'
+    }
+*/
+  const { bootcamp } = req.query;
+  let resultado = [...estudiantes];
+  if (bootcamp && typeof bootcamp === 'string') {
+    resultado = resultado.filter(
+      (e) => e.bootcamp.toLowerCase() === bootcamp.toLowerCase()
+    );
+  }
+  return res.json(resultado);
+
+});
+
+
+
 
 
 // ENDPOINT POST -- CREAR LOS ESTUDIANTES
@@ -168,20 +196,10 @@ router.delete("/:id", function (req: Request, res: Response) {
 // ---------------- FILTRADO -----------------------
 
 // ---------------- BUSQUEDA POR BOOTCAMP (NO FUNCIONÓ XD) ------------
-router.get(
+/*router.get(
   "/",
     function (req: Request<{}, {}, {}, estudiantesFiltrados>, res: Response) {
-/*
-    #swagger.tags = ['LISTA DE ESTUDIANTES']
-    #swagger.summary = 'PODER BUSCAR POR EL BOOTCAMP'
-    #swagger.parameters['bootcamp'] = {
-      in: 'query',
-      description: 'FILTRARLO POR EL BOOTCAMP',
-      required: false,
-      type: 'string'
-    }
-
-  */
+  
         const { bootcamp } = req.query;
         let resultado = [...estudiantes];
 
@@ -193,7 +211,7 @@ router.get(
 
   return res.json(resultado);
 });
-
+*/
 
 // --------------- BUSQUEDA POR EL ID
 router.get("/:id", function (req: Request<idParam>, res: Response) {

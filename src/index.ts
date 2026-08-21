@@ -3,9 +3,25 @@ import type {NextFunction, Request, Response} from "express"
 import { error } from "node:console";
 import fs from "node:fs/promises";
 import path from "node:path";
+import cors from 'cors';
 
 const app = express();
-const PORT = 3000;
+
+app.use(cors());
+
+const PORT = process.env.PORT ?? 3000;
+
+
+
+
+app.use(express.json()); 
+app.use(function(req: Request, res: Response, next: NextFunction){
+    const timestamp = new Date().toLocaleTimeString();
+    console.log(`[${timestamp}] ${req.method} ${req.url}`);
+    next();
+})
+
+
 
 
 import estudiantesRouter from './routes/estudiantes.routes.js';
@@ -22,17 +38,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 
 
-
-app.use(express.json()); 
-app.use(function(req: Request, res: Response, next: NextFunction){
-    const timestamp = new Date().toLocaleTimeString();
-    console.log(`[${timestamp}] ${req.method} ${req.url}`);
-    next();
-})
-
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
 
 
 
@@ -193,12 +202,12 @@ app.get ("/", async function(req: Request, res: Response) {
         . acceda a: http://localhost:3000/api/status
         . o tambien a: http://localhost:3000/api/estudiantes`);
 });
-
+/* 
 app.listen(PORT, async function() {
     console.log(`AQUI SE ENCUENTRA EL SERVIDOR --> http://localhost:3000/`);
     await cargarDatos();
 })
-
+ */
 
 // ---------- EXPORTACIONES --------
 

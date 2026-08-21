@@ -31,6 +31,29 @@
         }
       }
     },
+    "/api/estudiantes/": {
+      "get": {
+        "tags": [
+          "LISTA DE ESTUDIANTES"
+        ],
+        "summary": "PODER ENCONTRAR A UN ESTUDIANTE POR SU BOOTCAMP",
+        "description": "",
+        "parameters": [
+          {
+            "name": "bootcamp",
+            "in": "query",
+            "description": "Filtrar por bootcamp",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/estudiantes/{id}": {
       "put": {
         "tags": [
@@ -112,29 +135,6 @@
             "required": true,
             "type": "integer",
             "description": "Buscar ID del estudiante"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/estudiantes/": {
-      "get": {
-        "tags": [
-          "LISTA DE ESTUDIANTES"
-        ],
-        "summary": "PODER BUSCAR POR EL BOOTCAMP",
-        "description": "",
-        "parameters": [
-          {
-            "name": "bootcamp",
-            "in": "query",
-            "description": "FILTRARLO POR EL BOOTCAMP",
-            "required": false,
-            "type": "string"
           }
         ],
         "responses": {
