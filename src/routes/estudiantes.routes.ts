@@ -34,6 +34,25 @@ async function cargarDatos() {
 
 // ENDPOINT GET -- LEER LOS ESTUDIANTES
 router.get ("", async function(req: Request, res: Response) {
+  /*
+    #swagger.tags = ['LISTA DE LOS ESTUDIANTES']
+    #swagger.summary = 'PODER VER A TODOS LOS ESTUDIANTES'
+    #swagger.responses[200] = {
+      description: 'ESTUDIANTES',
+      schema: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            id: { type: 'number', example: 1 },
+            titulo: { type: 'string', example: 'programacion' },
+            duracionSemanas: { type: 'number', example: 16 },
+            publicado: { type: 'boolean', example: true }
+          }
+        }
+      }
+    }
+  */
     const estadoActualEstudiantes = await estudiantes;
     res.json(estadoActualEstudiantes);
 });
@@ -41,6 +60,20 @@ router.get ("", async function(req: Request, res: Response) {
 
 // ENDPOINT POST -- CREAR LOS ESTUDIANTES
 router.post("", function(req: Request<{},{}, crearEstudiante>, res: Response){
+  /*
+    #swagger.tags = ['LISTA DE ESTUDIANTES']
+    #swagger.summary = 'CREAR A UN ESTUDIANTE'
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'INGRESE ESTA INFORMACION PARA PODER CREAR A UN ESTUDIANTE',
+      required: true,
+      schema: {
+        $nombre: "Ernesto De la Cruz",
+        $email: "cualquiera@gmail.com"
+        &bootcamp: "Tester"
+      }
+    }
+  */
     const {nombre, email, bootcamp} = req.body;
     if(!nombre || !email ){
         return (res.status(400).json({ error: "Bad Request"}))
@@ -61,6 +94,26 @@ router.post("", function(req: Request<{},{}, crearEstudiante>, res: Response){
 
 // ENDPOINT PUT -- ACTUALIZAR LOS ESTUDIANTES
 router.put("/:id", function (req: Request, res: Response) {
+  /*
+      #swagger.tags = ['LISTA DE ESTUDIANTES']
+      #swagger.summary = 'ACTUALIZAR A UN ESTUDIANTE DE LA LISTA'
+      #swagger.parameters['id'] = {
+        in: 'path',
+        description: 'SE NECECITA LA ID DEL ESTUDIANTE PARA ACTUALIZAR',
+        required: true,
+        type: 'integer'
+      }
+      #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'INGRESE LA INFORMACION A ACTUALIZAR DE LA SIGUIENTE MANERA',
+        required: true,
+        schema: {
+          nombre: "Jose De la Cruz",
+          email: "otroactualizado@gmail.com",
+          boomcamp: "developer"
+        }
+      }
+    */
   const idBuscado = Number(req.params.id);
   const index = estudiantes.findIndex(function (e) {
     return e.id === idBuscado;
@@ -85,6 +138,16 @@ router.put("/:id", function (req: Request, res: Response) {
 
 //ENDPOINT DELETE -- ELIMINAR UN ESTUDIANTE
 router.delete("/:id", function (req: Request, res: Response) {
+  /*
+    #swagger.tags = ['LISTA DE ESTUDIANTES']
+    #swagger.summary = 'ELIMINAR A UN ESTUDIANTE POR BOBITO'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'SE DEBE INGRESAR LA ID DEL ESTUDIANTE A ELIMINAR ¡CUIDADO! UNA VEZ HECHO NO HAY VUELTA ATRAS',
+      required: true,
+      type: 'integer'
+    }
+  */
   const idBuscado = Number(req.params.id);
   const index = estudiantes.findIndex(function (e) {
     return e.id === idBuscado;
@@ -108,6 +171,17 @@ router.delete("/:id", function (req: Request, res: Response) {
 router.get(
   "/",
     function (req: Request<{}, {}, {}, estudiantesFiltrados>, res: Response) {
+/*
+    #swagger.tags = ['LISTA DE ESTUDIANTES']
+    #swagger.summary = 'PODER BUSCAR POR EL BOOTCAMP'
+    #swagger.parameters['bootcamp'] = {
+      in: 'query',
+      description: 'FILTRARLO POR EL BOOTCAMP',
+      required: false,
+      type: 'string'
+    }
+
+  */
         const { bootcamp } = req.query;
         let resultado = [...estudiantes];
 
@@ -123,6 +197,14 @@ router.get(
 
 // --------------- BUSQUEDA POR EL ID
 router.get("/:id", function (req: Request<idParam>, res: Response) {
+// #swagger.tags = ['LISTA DE ESTUDIANTES POR ID']
+  // #swagger.description = 'Buscar a un estudiante por su ID'
+  /*  #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'Buscar ID del estudiante',
+          required: true,
+          type: 'integer'
+  } */
   const idBuscado = Number(req.params.id); //Number("juan") === 32
 
   if (isNaN(idBuscado)) {

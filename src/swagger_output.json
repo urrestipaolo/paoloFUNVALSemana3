@@ -1,0 +1,148 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Inscripciones Académicas",
+    "description": "Documentación de la API REST del MP-S2",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/status": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/estudiantes/{id}": {
+      "put": {
+        "tags": [
+          "LISTA DE ESTUDIANTES"
+        ],
+        "summary": "ACTUALIZAR A UN ESTUDIANTE DE LA LISTA",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "SE NECECITA LA ID DEL ESTUDIANTE PARA ACTUALIZAR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "INGRESE LA INFORMACION A ACTUALIZAR DE LA SIGUIENTE MANERA",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {
+                  "type": "string",
+                  "example": "Jose De la Cruz"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "otroactualizado@gmail.com"
+                },
+                "boomcamp": {
+                  "type": "string",
+                  "example": "developer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "LISTA DE ESTUDIANTES"
+        ],
+        "summary": "ELIMINAR A UN ESTUDIANTE POR BOBITO",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "SE DEBE INGRESAR LA ID DEL ESTUDIANTE A ELIMINAR ¡CUIDADO! UNA VEZ HECHO NO HAY VUELTA ATRAS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "LISTA DE ESTUDIANTES POR ID"
+        ],
+        "description": "Buscar a un estudiante por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Buscar ID del estudiante"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/estudiantes/": {
+      "get": {
+        "tags": [
+          "LISTA DE ESTUDIANTES"
+        ],
+        "summary": "PODER BUSCAR POR EL BOOTCAMP",
+        "description": "",
+        "parameters": [
+          {
+            "name": "bootcamp",
+            "in": "query",
+            "description": "FILTRARLO POR EL BOOTCAMP",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}

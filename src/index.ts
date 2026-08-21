@@ -10,8 +10,15 @@ const PORT = 3000;
 
 import estudiantesRouter from './routes/estudiantes.routes.js';
 import { cargarDatos } from './routes/estudiantes.routes.js';
-
 app.use('/api/estudiantes', estudiantesRouter);
+
+
+import swaggerUi from 'swagger-ui-express';
+import swaggerOutput from '../src/swagger_output.json' with {type: 'json'};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
+
+
 
 
 
@@ -26,6 +33,7 @@ app.use(function(req: Request, res: Response, next: NextFunction){
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
 
 
 // ------- CODIGO OMITIDO PORQUE YA NO SE NECESITA --------------------------------
@@ -169,6 +177,10 @@ interface estudiantesFiltrados {
   bootcamp?: string;
 }
 
+interface idParam {
+  id: string;
+}
+
 // ---------------------------------------------------------------------------------------
 app.get ("/api/status", async function(req: Request, res: Response) {
     const estadoActual = await (`"status": "Servidor en línea", "version": "1.0.0"`);
@@ -190,4 +202,4 @@ app.listen(PORT, async function() {
 
 // ---------- EXPORTACIONES --------
 
-export type {Estudiante , crearEstudiante, actualizarEstudiante, estudiantesFiltrados}
+export type {Estudiante , crearEstudiante, actualizarEstudiante, estudiantesFiltrados, idParam}
